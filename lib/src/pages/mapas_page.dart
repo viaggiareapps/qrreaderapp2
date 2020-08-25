@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qrreaderapp/src/bloc/scans_bloc.dart';
 import 'package:qrreaderapp/src/providers/db_provider.dart';
+import 'package:qrreaderapp/src/utils/utils.dart' as utils;
 
 
 class MapasPage extends StatelessWidget {
@@ -33,6 +34,9 @@ class MapasPage extends StatelessWidget {
             ),
             onDismissed: (direction) => scansBloc.borrarScan(scans[i].id),
             child: ListTile(
+              onTap: (){
+                utils.abrirScan(context, scans[i]);
+              },
               leading: Icon(Icons.cloud_queue, color:  Theme.of(context).primaryColor,),
               title: Text(scans[i].valor),
               subtitle: Text('ID: ${scans[i].id}'),

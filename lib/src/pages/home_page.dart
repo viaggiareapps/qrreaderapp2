@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:qrreaderapp/src/bloc/scans_bloc.dart';
 import 'package:qrreaderapp/src/pages/direcciones_page.dart';
 import 'package:qrreaderapp/src/pages/mapas_page.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:qrreaderapp/src/providers/db_provider.dart';
+import 'package:qrreaderapp/src/utils/utils.dart' as utils;
 
 
 class HomePage extends StatefulWidget {
@@ -35,13 +38,13 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.filter_center_focus),
-        onPressed: _scanQR,
+        onPressed:() => _scanQR(context),
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }
 
-  _scanQR() async{
+  _scanQR(BuildContext context) async{
 
     //https://www.cinecalidad.to/
 
@@ -58,6 +61,18 @@ class _HomePageState extends State<HomePage> {
     if(futureString != null){
       final scan = ScanModel(valor: futureString);
       scansBloc.agregarScan(scan);
+
+      final scan2 = ScanModel(valor: 'geo:6.2682892741277785,-75.5686606450928');
+      scansBloc.agregarScan(scan2);
+
+      if (Platform.isIOS) {
+        Future.delayed(Duration(milliseconds: 750),(){
+          utils.abrirScan(context, scan);
+        });
+      }else{
+        utils.abrirScan(context, scan);
+      }
+      
     }
 
   }
