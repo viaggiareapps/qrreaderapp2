@@ -34,6 +34,7 @@ dependencies:
   url_launcher: ^5.5.0
   flutter_map: ^0.10.1+1
   latlong: ^0.6.1
+  mapbox_gl: ^0.8.0
 
 dev_dependencies:
   flutter_test:

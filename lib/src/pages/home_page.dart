@@ -47,23 +47,19 @@ class _HomePageState extends State<HomePage> {
   _scanQR(BuildContext context) async{
 
     //https://www.cinecalidad.to/
-
     //geo:6.2682892741277785,-75.5686606450928
 
-    dynamic futureString = 'https://www.cinecalidad.to/';
+    dynamic futureString;
 
-    // try {
-    //   futureString = await BarcodeScanner.scan();
-    // } catch (e) {
-    //   futureString = e.toString();
-    // }
+    try {
+      futureString = await BarcodeScanner.scan();
+    } catch (e) {
+      futureString = e.toString();
+    }
 
     if(futureString != null){
-      final scan = ScanModel(valor: futureString);
+      final scan = ScanModel(valor: futureString.rawContent);
       scansBloc.agregarScan(scan);
-
-      final scan2 = ScanModel(valor: 'geo:6.2682892741277785,-75.5686606450928');
-      scansBloc.agregarScan(scan2);
 
       if (Platform.isIOS) {
         Future.delayed(Duration(milliseconds: 750),(){
